@@ -34,8 +34,10 @@ footer .flogo{width:14rem;max-width:100%;margin-bottom:12px}
 .nav a[aria-current=page]{box-shadow:inset 0 -3px 0 var(--amber)}
 .menu{display:none;margin-left:auto;background:none;border:1px solid #ffffff66;color:#fff;font:600 .95rem var(--body);padding:7px 12px;border-radius:4px}
 .nav a.call{background:var(--amber);color:#111;font-weight:600;padding-left:16px;padding-right:16px;margin-left:6px}
+@media (max-width:1240px){.nav a.call{margin-left:0;margin-top:6px}}
 .nav a.call[aria-current=page]{box-shadow:none;outline:2px solid #fff;outline-offset:2px}
-.nav a.staff{border:1px solid #ffffff59;margin-left:6px;font-size:.9rem}
+footer .staff{float:right;margin-left:16px;color:#8fa3b8;text-decoration:none}
+footer .staff:hover{color:#fff;text-decoration:underline}
 .nav a.call:hover{background:#e0b65c}
 
 /* buttons, fields */
@@ -133,7 +135,6 @@ footer .fine{border-top:1px solid #ffffff22;margin-top:28px;padding-top:16px;fon
   .menu{display:block}
   .nav{display:none;width:100%;flex-direction:column;padding-bottom:12px}
   .nav.open{display:flex}
-  .nav a.staff{margin-left:0;margin-top:6px}
   .top .wrap{flex-wrap:wrap}
 }
 @media (max-width:900px){
