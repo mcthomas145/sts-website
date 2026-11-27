@@ -33,9 +33,10 @@ footer .flogo{width:14rem;max-width:100%;margin-bottom:12px}
 .nav a:hover{background:#ffffff1c}
 .nav a[aria-current=page]{box-shadow:inset 0 -3px 0 var(--amber)}
 .menu{display:none;margin-left:auto;background:none;border:1px solid #ffffff66;color:#fff;font:600 .95rem var(--body);padding:7px 12px;border-radius:4px}
-.call{background:var(--amber);color:#111 !important;font-weight:600 !important}
+.nav a.call{background:var(--amber);color:#111;font-weight:600;padding-left:16px;padding-right:16px;margin-left:6px}
+.nav a.call[aria-current=page]{box-shadow:none;outline:2px solid #fff;outline-offset:2px}
 .nav a.staff{border:1px solid #ffffff59;margin-left:6px;font-size:.9rem}
-.call:hover{background:#e0b65c !important}
+.nav a.call:hover{background:#e0b65c}
 
 /* buttons, fields */
 .btn{display:inline-block;background:var(--red);color:#fff;border:0;border-radius:4px;padding:12px 22px;font:600 1.02rem var(--body);cursor:pointer;text-decoration:none}
