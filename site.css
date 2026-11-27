@@ -52,7 +52,7 @@ label{display:block;font-size:.9rem;font-weight:500;margin:12px 0 4px}
 
 /* hero */
 /* Photo slots: upload photo-hero.jpg, photo-page.jpg and photo-cta.jpg next to this file to show them. Until then the navy shows. */
-.hero{min-height:min(70vh,46rem);display:flex;align-items:center;background:linear-gradient(90deg,#071b3b 0%,#071b3bf0 34%,#071b3b8c 100%),url(photo-hero.jpg) center/cover no-repeat,var(--navy);color:#fff;padding:56px 0 64px;border-bottom:6px solid var(--amber)}
+.hero{min-height:min(52vh,34rem);display:flex;align-items:center;background:linear-gradient(90deg,#071b3b 0%,#071b3bf0 34%,#071b3b8c 100%),url(photo-hero.jpg) center/cover no-repeat,var(--navy);color:#fff;padding:56px 0 64px;border-bottom:6px solid var(--amber)}
 .hero .wrap{width:100%}
 .hero h1{max-width:16ch}
 .hero .lede{color:#c9d6e3}
