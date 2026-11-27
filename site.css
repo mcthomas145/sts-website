@@ -26,9 +26,9 @@ p{margin:0 0 1em}
 .top{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20}
 .top .wrap{display:flex;align-items:center;gap:20px;min-height:4.1rem}
 .logo{color:#fff;text-decoration:none;display:flex;align-items:center;gap:12px;padding:6px 0}
-.logo img{height:3rem;width:auto}
-.logo small{font:500 .82rem/1.2 var(--body);opacity:.85}
-footer .flogo{width:15rem;max-width:100%;margin-bottom:12px}
+.logo img{height:2.9rem;width:auto}
+.logo small{display:none}
+footer .flogo{width:14rem;max-width:100%;margin-bottom:12px}
 @media (max-width:520px){.logo small{display:none}}
 .nav{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
 .nav a{color:#fff;text-decoration:none;font-weight:500;padding:8px 11px;border-radius:4px;font-size:.98rem}
