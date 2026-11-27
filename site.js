@@ -114,7 +114,17 @@ function openUnit(id) {
 }
 function closeUnit() { if (!$("#modal") || !$("#modal").innerHTML) return; $("#modal").innerHTML = ""; if (location.search.includes("unit=")) history.replaceState(null, "", location.pathname); document.title = document.body.dataset.title || document.title; }
 
+// swipe left or right on a photo (phones and tablets)
+let swipeX = null, swiped = 0;
+document.addEventListener("touchstart", (e) => { swipeX = e.target.closest("[data-gal]") ? e.touches[0].clientX : null; }, { passive: true });
+document.addEventListener("touchend", (e) => {
+  const g = e.target.closest("[data-gal]"); if (!g || swipeX == null) return;
+  const dx = e.changedTouches[0].clientX - swipeX; swipeX = null;
+  if (Math.abs(dx) < 40 || !$(".pnav", g)) return;
+  swiped = Date.now(); showPhoto(g, Number(g.dataset.i) + (dx < 0 ? 1 : -1));
+}, { passive: true });
 document.addEventListener("click", (e) => {
+  if (Date.now() - swiped < 500) return;
   const nv = e.target.closest("[data-nav]");
   if (nv) { const g = nv.closest("[data-gal]"); showPhoto(g, Number(g.dataset.i) + Number(nv.dataset.nav)); return; }
   const c = e.target.closest(".tc[data-id]");
