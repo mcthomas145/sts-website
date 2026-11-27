@@ -3,8 +3,6 @@
   --navy:#071b3b;--red:#c8102e;--amber:#cea144;
   --bg:#0c1620;--band:#111e2b;--card:#14212e;--ink:#e7edf3;--muted:#9fb0c0;--line:#283848;--field:#0c1620;--field-line:#3b4d60;--ph:#1c2b3a;--red-ink:#ff7b7b;--rule:#cea144;
   --head:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--body:"Barlow",system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
-/* Dark is the default. The Light mode button in the footer switches and remembers the choice. */
-:root[data-theme=light]{color-scheme:light;--bg:#fff;--band:#eef1f4;--card:#fff;--ink:#111c27;--muted:#52606e;--line:#d3dae2;--field:#fff;--field-line:#aab4bf;--ph:#e3e8ed;--red-ink:#b30e29;--rule:#071b3b}
 *{box-sizing:border-box}
 /* Text and layout scale with the visitor's screen: phones up to large desktop monitors */
 html{scroll-behavior:smooth;font-size:clamp(16px,calc(10.6px + .42vw),21px)}
@@ -126,7 +124,6 @@ footer{background:#071b3b;color:#c9d6e3;padding:44px 0 28px;font-size:.96rem}
 footer .cols4{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:30px}
 footer h3{color:#fff;font-size:1.15rem;text-transform:uppercase}
 footer a{color:#c9d6e3}footer ul{list-style:none;margin:0;padding:0}footer li{margin-bottom:6px}
-footer .theme{background:none;border:1px solid #ffffff55;color:#c9d6e3;border-radius:4px;padding:5px 12px;cursor:pointer;font-size:.86rem;float:right}
 footer .fine{border-top:1px solid #ffffff22;margin-top:28px;padding-top:16px;font-size:.86rem}
 
 @media (max-width:1500px){.logo small{display:none}}

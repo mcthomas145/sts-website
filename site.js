@@ -7,16 +7,6 @@ const money = (n) => "$" + Number(n).toLocaleString("en-US", { maximumFractionDi
 const title = (u) => [u.year, u.make, u.model].filter(Boolean).join(" ");
 let UNITS = [], DEALER = {};
 
-// light / dark: dark by default, visitor's choice is remembered
-const themeBtn = $(".theme");
-function paintTheme() { if (themeBtn) themeBtn.textContent = document.documentElement.dataset.theme === "light" ? "Dark mode" : "Light mode"; }
-if (themeBtn) themeBtn.addEventListener("click", () => {
-  const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
-  document.documentElement.dataset.theme = next; try { localStorage.setItem("sts-theme", next); } catch {}
-  paintTheme();
-});
-paintTheme();
-
 // mobile menu
 const menu = $(".menu"), nav = $(".nav");
 if (menu) menu.addEventListener("click", () => { const open = nav.classList.toggle("open"); menu.setAttribute("aria-expanded", open); });
