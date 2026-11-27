@@ -6,6 +6,8 @@ const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "
 const money = (n) => "$" + Number(n).toLocaleString("en-US", { maximumFractionDigits: 0 });
 const title = (u) => [u.year, u.make, u.model].filter(Boolean).join(" ");
 let UNITS = [], DEALER = {};
+const isSoon = (u) => u.status === "Coming Soon";
+const forSale = () => UNITS.filter((u) => !isSoon(u)), comingSoon = () => UNITS.filter(isSoon);
 
 // mobile menu
 const menu = $(".menu"), nav = $(".nav");
@@ -43,8 +45,8 @@ function card(u) {
     <div class="ph" data-gal="${u.id}" data-i="0">${n ? `<img src="${esc(u.photos[0])}" alt="${esc(title(u))}" loading="lazy">${arrows(u)}${n > 1 ? `<div class="dots">${u.photos.map((p, i) => `<span${i ? "" : ' class="on"'}></span>`).join("")}</div>` : ""}` : "Photos coming soon"}${u.status !== "Available" ? `<span class="flag">${esc(u.status)}</span>` : ""}</div>
     <div class="bd">${u.stock_no ? `<div class="unit">Unit #${esc(u.stock_no)}</div>` : ""}<div class="ttl">${esc(title(u))}</div>
     <ul class="specs">${specs.map(([k, v]) => `<li>${ICON[k]}<span>${esc(v)}</span></li>`).join("")}</ul>
-    <div class="price">${u.price != null ? money(u.price) : "Call for price"}</div>
-    <span class="btn go">Ask about this truck</span></div></div>`;
+    <div class="price">${u.price != null ? money(u.price) : isSoon(u) ? "Price to be announced" : "Call for price"}</div>
+    <span class="btn go">${isSoon(u) ? "Tell me when it arrives" : "Ask about this truck"}</span></div></div>`;
 }
 const emptyMsg = `<div class="empty"><h3>New trucks are on the way</h3><p>Our next units are being prepared for sale. Tell us what you are looking for and we will contact you when a match arrives.</p><a class="btn" href="contact.html">Tell us what you need</a></div>`;
 
@@ -55,17 +57,26 @@ function drawInventory() {
   const big = Number.MAX_SAFE_INTEGER;
   const by = { plow: (a, b) => (a.price ?? big) - (b.price ?? big), phigh: (a, b) => (b.price ?? -1) - (a.price ?? -1), miles: (a, b) => (a.mileage ?? big) - (b.mileage ?? big), year: (a, b) => (b.year ?? 0) - (a.year ?? 0) }[sort];
   if (by) list = [...list].sort(by);
-  $("#count").textContent = UNITS.length ? `${list.length} truck${list.length === 1 ? "" : "s"} listed` : "";
-  grid.innerHTML = UNITS.length ? (list.length ? list.map(card).join("") : `<p>No trucks match that search. <a href="inventory.html">Show all trucks</a></p>`) : emptyMsg;
+  const sale = list.filter((u) => !isSoon(u)), soon = list.filter(isSoon), any = forSale().length;
+  $("#count").textContent = any ? `${sale.length} truck${sale.length === 1 ? "" : "s"} listed` : "";
+  grid.innerHTML = any ? (sale.length ? sale.map(card).join("") : `<p>No trucks match that search. <a href="inventory.html">Show all trucks</a></p>`) : emptyMsg;
+  drawSoon(soon);
+}
+function drawSoon(list) {
+  const sec = $("#soonSection"); if (!sec) return;
+  sec.hidden = !list.length; $("#soon").innerHTML = list.map(card).join("");
 }
 function drawFeatured() {
   const el = $("#featured"); if (!el) return;
-  el.innerHTML = UNITS.length ? `<div class="grid">${UNITS.slice(0, 4).map(card).join("")}</div>` : emptyMsg;
+  const sale = forSale();
+  el.innerHTML = sale.length ? `<div class="grid">${sale.slice(0, 4).map(card).join("")}</div>` : emptyMsg;
+  drawSoon(comingSoon().slice(0, 4));
 }
 function vehicleSchema() {
-  if (!UNITS.length || !$("#grid")) return;
+  const sale = forSale(); // trucks that are not for sale yet are left out of what Google reads as offers
+  if (!sale.length || !$("#grid")) return;
   const s = document.createElement("script"); s.type = "application/ld+json";
-  s.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "ItemList", itemListElement: UNITS.map((u, i) => ({ "@type": "ListItem", position: i + 1, item: {
+  s.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "ItemList", itemListElement: sale.map((u, i) => ({ "@type": "ListItem", position: i + 1, item: {
     "@type": "Vehicle", name: title(u), url: `https://ststrucksales.com/inventory.html?unit=${u.id}`, image: u.photos.slice(0, 5), sku: u.stock_no || undefined,
     vehicleModelDate: u.year || undefined, brand: u.make ? { "@type": "Brand", name: u.make } : undefined, model: u.model || undefined, color: u.color || undefined,
     mileageFromOdometer: u.mileage != null ? { "@type": "QuantitativeValue", value: u.mileage, unitCode: "SMI" } : undefined, vehicleTransmission: u.transmission || undefined,
@@ -104,7 +115,7 @@ function openUnit(id) {
       ${u.features.length ? `<h3>Features</h3><ul>${u.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
       ${u.warranty ? `<h3>Warranty</h3><p class="pre">${esc(u.warranty)}</p>` : ""}
     </div><div>
-      <div class="price" style="font-size:2.4rem">${u.price != null ? money(u.price) : "Call for price"}</div>${u.status !== "Available" ? `<p><b>${esc(u.status)}</b></p>` : ""}
+      <div class="price" style="font-size:2.4rem">${u.price != null ? money(u.price) : isSoon(u) ? "Price to be announced" : "Call for price"}</div>${isSoon(u) ? `<p><b>Coming soon.</b> This truck is not for sale yet. Send the form and we will contact you when it is ready.</p>` : u.status !== "Available" ? `<p><b>${esc(u.status)}</b></p>` : ""}
       <dl class="spec">${specs.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
       <h3>Ask about this truck</h3>${leadForm(u.id)}
     </div></div></div></div>`;
