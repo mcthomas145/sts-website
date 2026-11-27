@@ -75,7 +75,7 @@ function leadForm(unitId) {
 }
 function openUnit(id) {
   const u = UNITS.find((x) => x.id === id); if (!u) return;
-  const specs = [["Unit", u.stock_no], ["VIN", u.vin], ["Mileage", u.mileage != null ? Number(u.mileage).toLocaleString() : ""], ["Cab", u.config], ["Engine", u.engine], ["Horsepower", u.hp], ["Transmission", u.transmission], ["Axles", u.axle], ["Rear ratio", u.ratio], ["Suspension", u.suspension], ["Wheelbase", u.wheelbase], ["Tires and wheels", u.tires], ["Color", u.color], ["Location", u.location]].filter((s) => s[1] != null && s[1] !== "");
+  const specs = [["Unit", u.stock_no], ["VIN", u.vin], ["Mileage", u.mileage != null ? Number(u.mileage).toLocaleString() : ""], ["Cab", u.config], ["Engine", u.engine], ["Horsepower", u.hp], ["Transmission", u.transmission], ["Axles", u.axle], ["Rear ratio", u.ratio], ["Suspension", u.suspension], ["Wheelbase", u.wheelbase], ["Tires and wheels", u.tires], ["Color", u.color]].filter((s) => s[1] != null && s[1] !== "");
   $("#modal").innerHTML = `<div class="overlay" data-close><div class="modal" role="dialog" aria-modal="true" aria-label="${esc(title(u))}">
     <div class="mh"><h2>${esc(title(u))}</h2><button class="btn line" data-close>Close</button></div>
     <div class="cols"><div>
