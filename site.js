@@ -54,11 +54,20 @@ function vehicleSchema() {
   document.head.appendChild(s);
 }
 
+// Fills every "which trucks" checklist from live inventory. `checked` is the truck already being viewed, if any.
+function fillPicks(root = document, checked = 0) {
+  root.querySelectorAll("[data-pick]").forEach((box) => {
+    if (!UNITS.length) return;
+    $(".picklist", box).innerHTML = UNITS.map((u) => `<label><input type="checkbox" name="unit" value="${u.id}" ${u.id === checked ? "checked" : ""}> <span>${u.stock_no ? "Unit " + esc(u.stock_no) + ": " : ""}${esc(title(u))}${u.price != null ? " · " + money(u.price) : ""}${u.status !== "Available" ? " (" + esc(u.status) + ")" : ""}</span></label>`).join("");
+    box.hidden = false;
+  });
+}
 function leadForm(unitId) {
   return `<form data-lead ${unitId ? `data-unit="${unitId}"` : ""}>
     <label>Name<input name="name" required autocomplete="name"></label>
     <label>Phone<input name="phone" required inputmode="tel" autocomplete="tel"></label>
     <label>Email (optional)<input name="email" type="email" autocomplete="email"></label>
+    <fieldset class="pick" data-pick hidden><legend>${unitId ? "Interested in other trucks too? Tick them" : "Which trucks are you interested in? (optional)"}</legend><div class="picklist"></div></fieldset>
     <label>Message (optional)<textarea name="message" rows="3"></textarea></label>
     <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
     <div class="msg" role="status"></div><button class="btn">Send inquiry</button>
@@ -80,6 +89,7 @@ function openUnit(id) {
       <h3>Ask about this truck</h3>${leadForm(u.id)}
     </div></div></div></div>`;
   document.title = `${title(u)} for sale | Supreme Truck Sales`;
+  fillPicks($("#modal"), u.id);
   history.replaceState(null, "", "inventory.html?unit=" + u.id);
 }
 function closeUnit() { if (!$("#modal") || !$("#modal").innerHTML) return; $("#modal").innerHTML = ""; if (location.search.includes("unit=")) history.replaceState(null, "", location.pathname); document.title = document.body.dataset.title || document.title; }
@@ -97,8 +107,10 @@ document.addEventListener("submit", async (e) => {
   if (f.matches("[data-find]")) { e.preventDefault(); const p = new URLSearchParams(new FormData(f)); for (const [k, v] of [...p]) if (!v) p.delete(k); location.href = "inventory.html" + (p.toString() ? "?" + p : ""); return; }
   if (!f.matches("[data-lead]")) return;
   e.preventDefault();
-  const msg = $(".msg", f), btn = $("button", f), body = Object.fromEntries(new FormData(f));
-  if (f.dataset.unit) body.unit_id = Number(f.dataset.unit);
+  const fd = new FormData(f), msg = $(".msg", f), btn = $("button", f), body = Object.fromEntries(fd);
+  delete body.unit;
+  body.unit_ids = [...new Set([f.dataset.unit, ...fd.getAll("unit")].filter(Boolean).map(Number))];
+  if (body.unit_ids.length) body.unit_id = body.unit_ids[0];
   if (f.dataset.topic) body.message = `[${f.dataset.topic}] ${body.message || ""}`.trim();
   btn.disabled = true; msg.textContent = "Sending…";
   try {
@@ -116,7 +128,7 @@ document.addEventListener("submit", async (e) => {
     const d = await (await fetch(WORKER_URL + "/api/public/inventory")).json();
     UNITS = d.units || []; DEALER = d.dealer || {};
   } catch { const c = $("#count"); if (c) c.textContent = "Inventory is temporarily unavailable. Please contact us."; }
-  fillDealer(); drawFeatured();
+  fillDealer(); drawFeatured(); fillPicks();
   if ($("#grid")) {
     const makes = [...new Set(UNITS.map((u) => u.make).filter(Boolean))].sort();
     $("#make").insertAdjacentHTML("beforeend", makes.map((m) => `<option>${esc(m)}</option>`).join(""));

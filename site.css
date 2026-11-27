@@ -51,6 +51,12 @@ input,select,textarea{width:100%;background:var(--field);border:1px solid var(--
 label{display:block;font-size:.9rem;font-weight:500;margin:12px 0 4px}
 .hp{position:absolute;left:-9999px}
 .msg{min-height:1.5em;font-weight:600;margin:8px 0}
+.pick{border:0;padding:0;margin:12px 0 0;min-width:0}
+.pick legend{font-size:.9rem;font-weight:500;padding:0;margin-bottom:4px}
+.picklist{border:1px solid var(--field-line);border-radius:4px;background:var(--field);max-height:11.5rem;overflow:auto;padding:6px 10px}
+.picklist label{display:flex;gap:10px;align-items:flex-start;margin:0;padding:6px 0;font-weight:400;font-size:.95rem;cursor:pointer}
+.picklist label+label{border-top:1px solid var(--line)}
+.picklist input{width:1.15rem;height:1.15rem;flex:none;margin-top:.2rem;accent-color:var(--amber)}
 .consent{font-size:.82rem;color:var(--muted);margin:10px 0 0}
 
 /* hero */
