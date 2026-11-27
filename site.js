@@ -50,7 +50,7 @@ function drawInventory() {
 }
 function drawFeatured() {
   const el = $("#featured"); if (!el) return;
-  el.innerHTML = UNITS.length ? `<div class="grid">${UNITS.slice(0, 3).map(card).join("")}</div>` : emptyMsg;
+  el.innerHTML = UNITS.length ? `<div class="grid">${UNITS.slice(0, 4).map(card).join("")}</div>` : emptyMsg;
 }
 function vehicleSchema() {
   if (!UNITS.length || !$("#grid")) return;
