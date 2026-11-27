@@ -71,7 +71,8 @@ function leadForm(unitId) {
     <label>Email (optional)<input name="email" type="email" autocomplete="email"></label>
     <label>Message (optional)<textarea name="message" rows="3"></textarea></label>
     <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
-    <div class="msg" role="status"></div><button class="btn">Send inquiry</button></form>`;
+    <div class="msg" role="status"></div><button class="btn">Send inquiry</button>
+    <p class="consent">By sending this form you agree that we may contact you by phone, text or email about your inquiry. See our <a href="privacy.html">privacy policy</a>.</p></form>`;
 }
 function openUnit(id) {
   const u = UNITS.find((x) => x.id === id); if (!u) return;
