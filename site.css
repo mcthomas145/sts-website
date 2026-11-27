@@ -120,6 +120,12 @@ details p{margin:10px 0 0;color:var(--muted)}
 .mh{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}.mh h2{flex:1;margin:0}
 .cols{display:grid;grid-template-columns:3fr 2fr;gap:26px}
 .big{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--ph);border-radius:4px}
+.gal{position:relative;line-height:0}
+.tc .ph{position:relative}
+.pnav{position:absolute;top:50%;transform:translateY(-50%);width:2.25rem;height:2.25rem;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.55);color:#fff;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.pnav:hover,.pnav:focus-visible{background:var(--amber);color:#000;border-color:var(--amber)}
+.pnav.prev{left:.5rem}.pnav.next{right:.5rem}
+.gal .pnav{width:2.75rem;height:2.75rem}
 .thumbs{display:flex;gap:6px;overflow:auto;margin-top:8px}
 .thumbs button{border:3px solid transparent;padding:0;background:none;cursor:pointer;flex:none}
 .thumbs button.on{border-color:var(--amber)}

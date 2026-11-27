@@ -18,13 +18,23 @@ function fillDealer() {
   document.querySelectorAll("[data-address]").forEach((el) => { if (DEALER.address) el.textContent = DEALER.address; });
 }
 
+const chev = (d) => `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="${d < 0 ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"}" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const arrows = (u) => u.photos.length > 1 ? `<button type="button" class="pnav prev" data-nav="-1" aria-label="Previous photo">${chev(-1)}</button><button type="button" class="pnav next" data-nav="1" aria-label="Next photo">${chev(1)}</button>` : "";
+function showPhoto(gal, i) {
+  const u = UNITS.find((x) => x.id === Number(gal.dataset.gal)); if (!u) return;
+  const n = u.photos.length; i = ((i % n) + n) % n; gal.dataset.i = i;
+  $("img", gal).src = u.photos[i];
+  const th = gal.parentNode.querySelectorAll(".thumbs button");
+  th.forEach((b, k) => b.classList.toggle("on", k === i));
+  if (th[i]) th[i].scrollIntoView({ block: "nearest", inline: "nearest" });
+}
 function card(u) {
   const specs = [u.mileage != null ? Number(u.mileage).toLocaleString() + " miles" : "", u.engine, u.transmission, u.config].filter(Boolean);
-  return `<button class="tc" data-id="${u.id}">
-    <div class="ph">${u.photos[0] ? `<img src="${esc(u.photos[0])}" alt="${esc(title(u))}" loading="lazy">` : "Photos coming soon"}</div>
+  return `<div class="tc" data-id="${u.id}" role="link" tabindex="0">
+    <div class="ph" data-gal="${u.id}" data-i="0">${u.photos[0] ? `<img src="${esc(u.photos[0])}" alt="${esc(title(u))}" loading="lazy">${arrows(u)}` : "Photos coming soon"}</div>
     ${u.stock_no ? `<span class="tag">Unit ${esc(u.stock_no)}</span>` : ""}${u.status !== "Available" ? `<span class="flag">${esc(u.status)}</span>` : ""}
     <div class="bd"><div class="ttl">${esc(title(u))}</div><div class="price">${u.price != null ? money(u.price) : "Call for price"}</div>
-    <ul class="specs">${specs.map((s) => `<li>${esc(s)}</li>`).join("")}</ul></div></button>`;
+    <ul class="specs">${specs.map((s) => `<li>${esc(s)}</li>`).join("")}</ul></div></div>`;
 }
 const emptyMsg = `<div class="empty"><h3>New trucks are on the way</h3><p>Our next units are being prepared for sale. Tell us what you are looking for and we will contact you when a match arrives.</p><a class="btn" href="contact.html">Tell us what you need</a></div>`;
 
@@ -79,7 +89,7 @@ function openUnit(id) {
   $("#modal").innerHTML = `<div class="overlay" data-close><div class="modal" role="dialog" aria-modal="true" aria-label="${esc(title(u))}">
     <div class="mh"><h2>${esc(title(u))}</h2><button class="btn line" data-close>Close</button></div>
     <div class="cols"><div>
-      ${u.photos.length ? `<img class="big" id="big" src="${esc(u.photos[0])}" alt="${esc(title(u))}">${u.photos.length > 1 ? `<div class="thumbs">${u.photos.map((p, i) => `<button class="${i ? "" : "on"}" data-photo="${esc(p)}" aria-label="Photo ${i + 1}"><img src="${esc(p)}" alt="" loading="lazy"></button>`).join("")}</div>` : ""}` : `<div class="big tc"><div class="ph" style="height:100%">Photos coming soon</div></div>`}
+      ${u.photos.length ? `<div class="gal" data-gal="${u.id}" data-i="0"><img class="big" id="big" src="${esc(u.photos[0])}" alt="${esc(title(u))}">${arrows(u)}</div>${u.photos.length > 1 ? `<div class="thumbs">${u.photos.map((p, i) => `<button class="${i ? "" : "on"}" data-photo="${i}" aria-label="Photo ${i + 1}"><img src="${esc(p)}" alt="" loading="lazy"></button>`).join("")}</div>` : ""}` : `<div class="big tc"><div class="ph" style="height:100%">Photos coming soon</div></div>`}
       ${u.description ? `<h3>About this truck</h3><p class="pre">${esc(u.description)}</p>` : ""}
       ${u.features.length ? `<h3>Features</h3><ul>${u.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
       ${u.warranty ? `<h3>Warranty</h3><p class="pre">${esc(u.warranty)}</p>` : ""}
@@ -95,13 +105,20 @@ function openUnit(id) {
 function closeUnit() { if (!$("#modal") || !$("#modal").innerHTML) return; $("#modal").innerHTML = ""; if (location.search.includes("unit=")) history.replaceState(null, "", location.pathname); document.title = document.body.dataset.title || document.title; }
 
 document.addEventListener("click", (e) => {
+  const nv = e.target.closest("[data-nav]");
+  if (nv) { const g = nv.closest("[data-gal]"); showPhoto(g, Number(g.dataset.i) + Number(nv.dataset.nav)); return; }
   const c = e.target.closest(".tc[data-id]");
   if (c) { if ($("#grid")) return openUnit(Number(c.dataset.id)); location.href = "inventory.html?unit=" + c.dataset.id; return; }
   const th = e.target.closest("[data-photo]");
-  if (th) { $("#big").src = th.dataset.photo; document.querySelectorAll(".thumbs button").forEach((b) => b.classList.toggle("on", b === th)); return; }
+  if (th) { showPhoto($("#modal [data-gal]"), Number(th.dataset.photo)); return; }
   if (e.target.matches("[data-close]")) closeUnit();
 });
-document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeUnit(); });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") return closeUnit();
+  const g = $("#modal [data-gal]");
+  if (g && !e.target.closest("input,textarea,select") && (e.key === "ArrowLeft" || e.key === "ArrowRight")) { showPhoto(g, Number(g.dataset.i) + (e.key === "ArrowLeft" ? -1 : 1)); return; }
+  if (e.key === "Enter" && e.target.matches(".tc[data-id]")) e.target.click();
+});
 document.addEventListener("submit", async (e) => {
   const f = e.target;
   if (f.matches("[data-find]")) { e.preventDefault(); const p = new URLSearchParams(new FormData(f)); for (const [k, v] of [...p]) if (!v) p.delete(k); location.href = "inventory.html" + (p.toString() ? "?" + p : ""); return; }
