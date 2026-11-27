@@ -24,17 +24,27 @@ function showPhoto(gal, i) {
   const u = UNITS.find((x) => x.id === Number(gal.dataset.gal)); if (!u) return;
   const n = u.photos.length; i = ((i % n) + n) % n; gal.dataset.i = i;
   $("img", gal).src = u.photos[i];
+  gal.querySelectorAll(".dots span").forEach((d, k) => d.classList.toggle("on", k === i));
   const th = gal.parentNode.querySelectorAll(".thumbs button");
   th.forEach((b, k) => b.classList.toggle("on", k === i));
   if (th[i]) th[i].scrollIntoView({ block: "nearest", inline: "nearest" });
 }
+const ico = (d) => `<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const ICON = {
+  miles: ico('<path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4-5"/>'),
+  engine: ico('<path d="M13 3L5 13h6l-1 8 8-10h-6z"/>'),
+  trans: ico('<circle cx="6" cy="6" r="1.6"/><circle cx="12" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="6" cy="18" r="1.6"/><circle cx="12" cy="18" r="1.6"/><path d="M6 7.6v8.8M12 7.6v8.8M18 7.6V12H6"/>'),
+  cab: ico('<path d="M3 17V7h9v10M12 10h4l4 4v3h-8"/><circle cx="7" cy="18" r="1.8"/><circle cx="16.5" cy="18" r="1.8"/>'),
+};
 function card(u) {
-  const specs = [u.mileage != null ? Number(u.mileage).toLocaleString() + " miles" : "", u.engine, u.transmission, u.config].filter(Boolean);
+  const specs = [["miles", u.mileage != null ? Number(u.mileage).toLocaleString() + " mi" : ""], ["engine", [u.engine, u.hp ? u.hp + " hp" : ""].filter(Boolean).join(", ")], ["trans", u.transmission], ["cab", u.config]].filter((x) => x[1]);
+  const n = u.photos.length;
   return `<div class="tc" data-id="${u.id}" role="link" tabindex="0">
-    <div class="ph" data-gal="${u.id}" data-i="0">${u.photos[0] ? `<img src="${esc(u.photos[0])}" alt="${esc(title(u))}" loading="lazy">${arrows(u)}` : "Photos coming soon"}</div>
-    ${u.stock_no ? `<span class="tag">Unit ${esc(u.stock_no)}</span>` : ""}${u.status !== "Available" ? `<span class="flag">${esc(u.status)}</span>` : ""}
-    <div class="bd"><div class="ttl">${esc(title(u))}</div><div class="price">${u.price != null ? money(u.price) : "Call for price"}</div>
-    <ul class="specs">${specs.map((s) => `<li>${esc(s)}</li>`).join("")}</ul></div></div>`;
+    <div class="ph" data-gal="${u.id}" data-i="0">${n ? `<img src="${esc(u.photos[0])}" alt="${esc(title(u))}" loading="lazy">${arrows(u)}${n > 1 ? `<div class="dots">${u.photos.map((p, i) => `<span${i ? "" : ' class="on"'}></span>`).join("")}</div>` : ""}` : "Photos coming soon"}${u.status !== "Available" ? `<span class="flag">${esc(u.status)}</span>` : ""}</div>
+    <div class="bd">${u.stock_no ? `<div class="unit">Unit #${esc(u.stock_no)}</div>` : ""}<div class="ttl">${esc(title(u))}</div>
+    <ul class="specs">${specs.map(([k, v]) => `<li>${ICON[k]}<span>${esc(v)}</span></li>`).join("")}</ul>
+    <div class="price">${u.price != null ? money(u.price) : "Call for price"}</div>
+    <span class="btn go">Ask about this truck</span></div></div>`;
 }
 const emptyMsg = `<div class="empty"><h3>New trucks are on the way</h3><p>Our next units are being prepared for sale. Tell us what you are looking for and we will contact you when a match arrives.</p><a class="btn" href="contact.html">Tell us what you need</a></div>`;
 
