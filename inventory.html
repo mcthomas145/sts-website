@@ -3,159 +3,64 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trucks for Sale | Supreme Truck Sales (STS)</title>
-<meta name="description" content="Used Class 8 trucks for sale from Supreme Truck Sales (STS). Browse current inventory with photos, specs and pricing.">
-<style>
-:root{--ink:#17202a;--muted:#637282;--line:#dde3ea;--bg:#f4f6f9;--card:#fff;--brand:#b3261e;--dark:#141b24}
-*{box-sizing:border-box}
-body{margin:0;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg)}
-header{background:var(--dark);color:#fff;padding:16px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-header .logo{font-weight:800;font-size:22px;letter-spacing:.05em}
-header .logo span{display:block;font-weight:400;font-size:12px;letter-spacing:0;opacity:.8}
-header .grow{flex:1}
-header a{color:#fff;font-weight:600;text-decoration:none}
-main{max-width:1200px;margin:0 auto;padding:24px 20px 60px}
-h1{margin:0 0 4px;font-size:28px}
-.sub{color:var(--muted);margin:0 0 20px}
-.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-input,select,textarea,button{font:inherit;color:inherit}
-input,select,textarea{border:1px solid #bcc6d1;border-radius:8px;padding:8px 10px;background:#fff;width:100%}
-.filters input{max-width:280px}.filters select{max-width:200px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-.tc{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;padding:0;text-align:left;display:flex;flex-direction:column}
-.tc:hover{box-shadow:0 4px 16px #0002}
-.tc .ph{height:200px;background:#e9eef4;display:flex;align-items:center;justify-content:center;color:var(--muted);position:relative}
-.tc img{width:100%;height:100%;object-fit:cover}
-.tc .bd{padding:14px}
-.tc .ttl{font-weight:700;font-size:17px}
-.tc .price{font-size:20px;font-weight:800;color:var(--brand);margin:4px 0}
-.tc .meta{color:var(--muted);font-size:14px}
-.flag{position:absolute;left:10px;top:10px;background:var(--dark);color:#fff;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700}
-.btn{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:10px 18px;font-weight:700;cursor:pointer}
-.btn.ghost{background:#fff;color:var(--ink);border:1px solid #bcc6d1}
-.overlay{position:fixed;inset:0;background:#000a;overflow:auto;padding:24px 12px;z-index:10}
-.modal{background:#fff;border-radius:14px;max-width:960px;margin:0 auto;padding:20px}
-.mh{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
-.mh h2{flex:1;margin:0;font-size:24px}
-.cols{display:grid;grid-template-columns:3fr 2fr;gap:22px}
-.big{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;background:#e9eef4}
-.thumbs{display:flex;gap:6px;overflow:auto;margin-top:8px}
-.thumbs button{border:2px solid transparent;border-radius:6px;padding:0;background:none;cursor:pointer;flex:none}
-.thumbs button.on{border-color:var(--brand)}
-.thumbs img{width:76px;height:57px;object-fit:cover;border-radius:4px;display:block}
-dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:12px 0}
-dt{color:var(--muted)}dd{margin:0;font-weight:600}
-label{display:block;font-size:13px;color:var(--muted);margin:10px 0 3px}
-.hp{position:absolute;left:-9999px}
-.msg{min-height:22px;margin-top:8px;font-weight:600}
-.pre{white-space:pre-wrap}
-@media (max-width:760px){.cols{grid-template-columns:1fr}}
-</style>
+<title>Used Class 8 Trucks for Sale | Inventory | Supreme Truck Sales</title>
+<meta name="description" content="Browse used semi trucks for sale at Supreme Truck Sales in Anderson, Indiana. Sleeper and day cab tractors with photos, mileage, engine, transmission and price.">
+<link rel="canonical" href="https://ststrucksales.com/inventory.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Supreme Truck Sales">
+<meta property="og:title" content="Used Class 8 Trucks for Sale | Inventory | Supreme Truck Sales">
+<meta property="og:description" content="Browse used semi trucks for sale at Supreme Truck Sales in Anderson, Indiana. Sleeper and day cab tractors with photos, mileage, engine, transmission and price.">
+<meta property="og:url" content="https://ststrucksales.com/inventory.html">
+<meta property="og:image" content="https://ststrucksales.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#10243a">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("sts-theme");if(t==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ststrucksales.com/"}, {"@type": "ListItem", "position": 2, "name": "Trucks for sale", "item": "https://ststrucksales.com/inventory.html"}]}</script>
 </head>
 <body>
-<header>
-  <div class="logo">STS<span>Supreme Truck Sales</span></div>
-  <div class="grow"></div>
-  <a id="phone" href="#"></a>
-</header>
-<main>
-  <h1>Trucks for Sale</h1>
-  <p class="sub" id="count">Loading inventory…</p>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap">
+  <a class="logo" href="./">STS <small>Supreme Truck Sales</small></a>
+  <button class="menu" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav class="nav" id="nav" aria-label="Main"><a href="inventory.html" aria-current=page>Inventory</a><a href="financing.html">Financing</a><a href="delivery.html">Delivery</a><a href="buying-guide.html">Buying guide</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="contact.html">Contact</a><a class="call" data-phone="Call " hidden></a></nav>
+</div></header>
+<main id="main">
+<div class="page-head"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="./">Home</a> / Trucks for sale</nav>
+  <h1>Trucks for sale</h1><p class="lede">Used Class 8 tractors in Anderson, Indiana. Select a truck for photos, full specs and an inquiry form.</p></div></div>
+
+<section><div class="wrap">
   <div class="filters">
-    <input id="q" placeholder="Search make, model, engine…" aria-label="Search inventory">
+    <input id="q" placeholder="Search make, model, engine or unit number" aria-label="Search inventory">
     <select id="make" aria-label="Filter by make"><option value="">All makes</option></select>
     <select id="sort" aria-label="Sort"><option value="new">Newest listings</option><option value="plow">Price: low to high</option><option value="phigh">Price: high to low</option><option value="miles">Lowest miles</option><option value="year">Newest year</option></select>
   </div>
+  <p id="count" class="lede" style="font-size:1rem"></p>
   <div class="grid" id="grid"></div>
-</main>
+  <noscript><p>Our inventory list needs JavaScript. Please <a href="contact.html">contact us</a> for current trucks.</p></noscript>
+</div></section>
+<section class="band"><div class="wrap narrow prose">
+  <h2 style="margin-top:0">About our inventory</h2>
+  <p>Supreme Truck Sales lists used Class 8 trucks: sleeper tractors for over-the-road work, day cabs for regional and local runs, and the occasional trailer. Each listing shows the year, make, model, mileage, engine, transmission and unit number, with photos of the actual truck.</p>
+  <p>Trucks are shown by appointment in Anderson, Indiana. If you do not see what you need, <a href="contact.html">tell us what you are looking for</a> and we will contact you when a match comes in.</p>
+</div></section>
 <div id="modal"></div>
-<script>
-// ▼▼ Set this to your Cloudflare Worker address (no trailing slash) ▼▼
-const WORKER_URL = "https://sts-dealer.matt-c78.workers.dev";
-// ▲▲ That is the only line you need to change ▲▲
 
-let UNITS = [], DEALER = {};
-const $ = (s) => document.querySelector(s);
-const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const money = (n) => "$" + Number(n).toLocaleString("en-US", { maximumFractionDigits: 0 });
-const title = (u) => [u.year, u.make, u.model].filter(Boolean).join(" ");
-
-async function load() {
-  try {
-    const r = await fetch(WORKER_URL + "/api/public/inventory");
-    const d = await r.json();
-    UNITS = d.units; DEALER = d.dealer;
-    if (DEALER.phone) { $("#phone").textContent = "Call " + DEALER.phone; $("#phone").href = "tel:" + DEALER.phone.replace(/[^\d+]/g, ""); }
-    const makes = [...new Set(UNITS.map((u) => u.make).filter(Boolean))].sort();
-    $("#make").insertAdjacentHTML("beforeend", makes.map((m) => `<option>${esc(m)}</option>`).join(""));
-    draw();
-    const id = Number(new URLSearchParams(location.search).get("unit"));
-    if (id && UNITS.some((u) => u.id === id)) openUnit(id);
-  } catch (e) { $("#count").textContent = "Inventory is temporarily unavailable. Please call us."; }
-}
-function draw() {
-  const q = $("#q").value.trim().toLowerCase(), make = $("#make").value, sort = $("#sort").value;
-  let list = UNITS.filter((u) => (!make || u.make === make) && (!q || [u.stock_no, u.year, u.make, u.model, u.engine, u.transmission, u.config].join(" ").toLowerCase().includes(q)));
-  const big = Number.MAX_SAFE_INTEGER;
-  const by = { plow: (a, b) => (a.price ?? big) - (b.price ?? big), phigh: (a, b) => (b.price ?? -1) - (a.price ?? -1), miles: (a, b) => (a.mileage ?? big) - (b.mileage ?? big), year: (a, b) => (b.year ?? 0) - (a.year ?? 0) }[sort];
-  if (by) list = [...list].sort(by);
-  $("#count").textContent = UNITS.length ? `${list.length} truck${list.length === 1 ? "" : "s"} available` : "New inventory is on the way. Check back soon or call us.";
-  $("#grid").innerHTML = list.map((u) => `<button class="tc" data-id="${u.id}">
-    <div class="ph">${u.photos[0] ? `<img src="${esc(u.photos[0])}" alt="${esc(title(u))}" loading="lazy">` : "Photos coming soon"}${u.status !== "Available" ? `<span class="flag">${esc(u.status)}</span>` : ""}</div>
-    <div class="bd"><div class="ttl">${esc(title(u))}</div><div class="price">${u.price != null ? money(u.price) : "Call for price"}</div>
-    <div class="meta">${esc([u.mileage != null ? Number(u.mileage).toLocaleString() + " mi" : "", u.engine, u.transmission].filter(Boolean).join(" · "))}</div>
-    <div class="meta">Unit #${esc(u.stock_no)}${u.location ? " · " + esc(u.location) : ""}</div></div></button>`).join("");
-}
-function openUnit(id) {
-  const u = UNITS.find((x) => x.id === id); if (!u) return;
-  const specs = [["Unit #", u.stock_no], ["VIN", u.vin], ["Mileage", u.mileage != null ? Number(u.mileage).toLocaleString() : ""], ["Cab", u.config], ["Engine", u.engine], ["Horsepower", u.hp], ["Transmission", u.transmission], ["Axles", u.axle], ["Rear ratio", u.ratio], ["Suspension", u.suspension], ["Wheelbase", u.wheelbase], ["Tires / wheels", u.tires], ["Color", u.color], ["Location", u.location]].filter((s) => s[1] != null && s[1] !== "");
-  $("#modal").innerHTML = `<div class="overlay" data-close><div class="modal" role="dialog" aria-modal="true" aria-label="${esc(title(u))}">
-    <div class="mh"><h2>${esc(title(u))}</h2><button class="btn ghost" data-close>Close</button></div>
-    <div class="cols"><div>
-      ${u.photos.length ? `<img class="big" id="big" src="${esc(u.photos[0])}" alt="${esc(title(u))}">
-        ${u.photos.length > 1 ? `<div class="thumbs">${u.photos.map((p, i) => `<button class="${i ? "" : "on"}" data-photo="${esc(p)}" aria-label="Photo ${i + 1}"><img src="${esc(p)}" alt="" loading="lazy"></button>`).join("")}</div>` : ""}` : `<div class="big" style="display:flex;align-items:center;justify-content:center;color:#637282">Photos coming soon</div>`}
-      ${u.description ? `<h3>About this truck</h3><p class="pre">${esc(u.description)}</p>` : ""}
-      ${u.features.length ? `<h3>Features</h3><ul>${u.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
-      ${u.warranty ? `<h3>Warranty</h3><p class="pre">${esc(u.warranty)}</p>` : ""}
-    </div><div>
-      <div class="tc" style="cursor:default;border:0"><div class="price" style="font-size:28px">${u.price != null ? money(u.price) : "Call for price"}</div>${u.status !== "Available" ? `<b>${esc(u.status)}</b>` : ""}</div>
-      <dl>${specs.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
-      <form id="lead" data-unit="${u.id}"><h3 style="margin-bottom:0">Ask about this truck</h3>
-        <label for="ln">Name</label><input id="ln" name="name" required autocomplete="name">
-        <label for="lp">Phone</label><input id="lp" name="phone" required inputmode="tel" autocomplete="tel">
-        <label for="le">Email (optional)</label><input id="le" name="email" type="email" autocomplete="email">
-        <label for="lm">Message (optional)</label><textarea id="lm" name="message" rows="3"></textarea>
-        <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
-        <div class="msg" id="leadMsg" role="status"></div>
-        <button class="btn" style="width:100%">Send inquiry</button>
-      </form>
-    </div></div></div></div>`;
-  history.replaceState(null, "", "?unit=" + u.id);
-}
-function closeUnit() { $("#modal").innerHTML = ""; history.replaceState(null, "", location.pathname); }
-
-document.addEventListener("click", (e) => {
-  const card = e.target.closest(".tc[data-id]"); if (card) return openUnit(Number(card.dataset.id));
-  const th = e.target.closest("[data-photo]");
-  if (th) { $("#big").src = th.dataset.photo; document.querySelectorAll(".thumbs button").forEach((b) => b.classList.toggle("on", b === th)); return; }
-  if (e.target.matches("[data-close]")) closeUnit();
-});
-document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeUnit(); });
-document.addEventListener("submit", async (e) => {
-  if (e.target.id !== "lead") return;
-  e.preventDefault();
-  const f = e.target, msg = $("#leadMsg"), btn = f.querySelector("button");
-  const body = Object.fromEntries(new FormData(f)); body.unit_id = Number(f.dataset.unit);
-  btn.disabled = true; msg.textContent = "Sending…";
-  try {
-    const r = await fetch(WORKER_URL + "/api/public/lead", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
-    const d = await r.json().catch(() => ({}));
-    if (!r.ok) throw new Error(d.error || "Could not send. Please call us.");
-    f.innerHTML = `<h3>Thank you!</h3><p>We received your inquiry and will be in touch shortly.</p>`;
-  } catch (err) { msg.textContent = err.message; btn.disabled = false; }
-});
-["input", "change"].forEach((ev) => document.addEventListener(ev, (e) => { if (["q", "make", "sort"].includes(e.target.id)) draw(); }));
-load();
-</script>
+</main>
+<footer><div class="wrap">
+  <div class="cols4">
+    <div><h3>Supreme Truck Sales</h3><p>Used Class 8 semi trucks in Anderson, Indiana. Doing business as STS.</p></div>
+    <div><h3>Trucks</h3><ul><li><a href="inventory.html">Inventory</a></li><li><a href="buying-guide.html">Buying guide</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
+    <div><h3>Buying</h3><ul><li><a href="financing.html">Financing</a></li><li><a href="delivery.html">Delivery</a></li><li><a href="about.html">About</a></li></ul></div>
+    <div><h3>Contact</h3><ul><li><a data-phone="" hidden></a></li><li><a data-email hidden></a></li><li data-address>Anderson, Indiana</li><li>By appointment only</li><li><a href="contact.html">Send a message</a></li></ul></div>
+  </div>
+  <div class="fine"><button class="theme" type="button">Light mode</button>© 2026 Supreme Truck Sales. All trucks are subject to prior sale. Listing details are believed accurate but are not guaranteed; confirm with us before you buy.</div>
+</div></footer>
+<script src="site.js" defer></script>
 </body>
 </html>
